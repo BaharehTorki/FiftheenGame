@@ -30,18 +30,19 @@ public class Spel extends JFrame {
 
                     int iEmpty = getIndexOfEmptyJLabel(panel.getComponents());
                     int iChosen = getIndexOfChosenJLabel(chosen, panel.getComponents());
+                    if (iChosen != -1) {
+                        List<JLabel> jLabels = convertToListOfJLabel(panel.getComponents());
 
-                    List<JLabel> jLabels = convertToListOfJLabel(panel.getComponents());
+                        Collections.swap(jLabels, iEmpty, iChosen);
+                        panel.removeAll();
 
-                    Collections.swap(jLabels, iEmpty, iChosen);
-                    panel.removeAll();
+                        for (JLabel c : jLabels) {
+                            panel.add(c);
+                        }
 
-                    for (JLabel c : jLabels) {
-                        panel.add(c);
+                        panel.revalidate();
+                        panel.repaint();
                     }
-
-                    panel.revalidate();
-                    panel.repaint();
                 }
             });
         }
@@ -85,7 +86,9 @@ public class Spel extends JFrame {
     private List<JLabel> convertToListOfJLabel(Component[] components) {
         List<JLabel> result = new ArrayList<>();
         for (Component c : components) {
-            result.add((JLabel) c);
+            if (c instanceof JLabel) {
+                result.add((JLabel) c);
+            }
         }
         return result;
     }
@@ -93,14 +96,34 @@ public class Spel extends JFrame {
     private int getIndexOfChosenJLabel(JLabel chosen, Component[] components) {
         if (chosen.getIcon() == null)
             return -1;
-        for (int i = 0; i < components.length; i++) {
-            if (components[i] instanceof JLabel)
-                if (chosen.getIcon().equals(((JLabel) components[i]).getIcon())) {
+
+        List<JLabel> jLabels = convertToListOfJLabel(components);
+        for (int i = 0; i < jLabels.size(); i++) {
+            if (chosen.getIcon().equals(jLabels.get(i).getIcon())) {
+                int[] existence = new int[]
+                        {(i - 1) >= 0 ? (i - 1) : -1,
+                                (i + 1) <= 15 ? (i + 1) : -1,
+                                (i - 4) >= 0 ? (i - 4) : -1,
+                                (i + 4) <= 15 ? (i + 4) : -1};
+                if (isAnySpace(jLabels, existence)) {
                     return i;
+                } else {
+                    return -1;
                 }
+            }
         }
-        return 0;
+        return -1;
     }
+
+    private boolean isAnySpace(List<JLabel> jLabels, int[] existence) {
+        for (int i : existence) {
+            if (i != -1 && jLabels.get(i).getIcon() == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private int getIndexOfEmptyJLabel(Component[] components) {
         for (int i = 0; i < components.length; i++) {
