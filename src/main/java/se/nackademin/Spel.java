@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Spel extends JFrame  {
+public class Spel extends JFrame {
 
     private JPanel panel = new JPanel();
     final List<JLabel> jLabelList;
@@ -28,12 +28,10 @@ public class Spel extends JFrame  {
                 public void mouseClicked(MouseEvent e) {
                     JLabel chosen = (JLabel) e.getSource();
 
-                    Container c1 = ((Container) e.getSource()).getParent();
-                    Component[] components = panel.getComponents();
-                    List<JLabel> jLabels = convertToListOfJLabel(Arrays.asList(c1.getComponents()));
+                    int iEmpty = getIndexOfEmptyJLabel(panel.getComponents());
+                    int iChosen = getIndexOfChosenJLabel(chosen, panel.getComponents());
 
-                    int iEmpty = getIndexOfEmptyJLabel(jLabels);
-                    int iChosen = getIndexOfChosenJLabel(chosen, jLabels);
+                    List<JLabel> jLabels = convertToListOfJLabel(panel.getComponents());
 
                     Collections.swap(jLabels, iEmpty, iChosen);
                     panel.removeAll();
@@ -46,18 +44,13 @@ public class Spel extends JFrame  {
                     panel.repaint();
                 }
             });
-
-            //revalidate();
-            //repaint();
         }
 
         pack();
-
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
 
     private List<JLabel> createJLabelList() {
         return createJLabelList(false);
@@ -73,11 +66,9 @@ public class Spel extends JFrame  {
             addFormat(jLabel, i);
             list.add(jLabel);
         }
-
         if (shuffle) {
             Collections.shuffle(list);
         }
-
         return list;
     }
 
@@ -91,7 +82,7 @@ public class Spel extends JFrame  {
         jLabel.setIcon(new ImageIcon(newimg));
     }
 
-    private List<JLabel> convertToListOfJLabel(List<Component> components) {
+    private List<JLabel> convertToListOfJLabel(Component[] components) {
         List<JLabel> result = new ArrayList<>();
         for (Component c : components) {
             result.add((JLabel) c);
@@ -99,20 +90,24 @@ public class Spel extends JFrame  {
         return result;
     }
 
-    private int getIndexOfChosenJLabel(JLabel chosen, List<JLabel> jLabelList) {
-        if (chosen.getIcon()==null)
+    private int getIndexOfChosenJLabel(JLabel chosen, Component[] components) {
+        if (chosen.getIcon() == null)
             return -1;
-        for (int i = 0; i < jLabelList.size(); i++) {
-            if (chosen.getIcon().equals(jLabelList.get(i).getIcon()))
-                return i;
+        for (int i = 0; i < components.length; i++) {
+            if (components[i] instanceof JLabel)
+                if (chosen.getIcon().equals(((JLabel) components[i]).getIcon())) {
+                    return i;
+                }
         }
         return 0;
     }
 
-    private int getIndexOfEmptyJLabel(List<JLabel> jLabelList) {
-        for (int i = 0; i < jLabelList.size(); i++) {
-            if (jLabelList.get(i).getIcon() == null)
-                return i;
+    private int getIndexOfEmptyJLabel(Component[] components) {
+        for (int i = 0; i < components.length; i++) {
+            if (components[i] instanceof JLabel) {
+                if (((JLabel) components[i]).getIcon() == null)
+                    return i;
+            }
         }
         return 0;
     }
