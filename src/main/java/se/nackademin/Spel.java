@@ -2,9 +2,11 @@ package se.nackademin;
 
 
 import javax.swing.*;
+import javax.swing.plaf.synth.ColorType;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +18,7 @@ public class Spel extends JFrame {
     final List<JLabel> jLabelList;
 
     public Spel() {
+
         add(panel);
         panel.setLayout(new GridLayout(4, 4));
         panel.setSize(500, 500);
@@ -42,6 +45,11 @@ public class Spel extends JFrame {
 
                         panel.revalidate();
                         panel.repaint();
+                        if (isSuccess(jLabels)) {
+                            System.out.println(jLabels);
+                            JOptionPane.showMessageDialog(null, "WWWWOOOWWWW");
+                        }
+
                     }
                 }
             });
@@ -76,11 +84,12 @@ public class Spel extends JFrame {
     private void addFormat(JLabel jLabel, int num) {
         String filePath = getClass().getClassLoader().getResource("brickor/bricka_" + num + ".png").getPath();
 
-        ImageIcon imageIcon = new ImageIcon(filePath);
+        ImageIcon imageIcon = new ImageIcon(filePath, String.valueOf(num));
         Image image = imageIcon.getImage();
-        Image newimg = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
-
-        jLabel.setIcon(new ImageIcon(newimg));
+        Image newImg = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+        ImageIcon newImgIcn = new ImageIcon(newImg,String.valueOf(num));
+        newImgIcn.setDescription(String.valueOf(num));
+        jLabel.setIcon(newImgIcn);
     }
 
     private List<JLabel> convertToListOfJLabel(Component[] components) {
@@ -134,4 +143,23 @@ public class Spel extends JFrame {
         }
         return 0;
     }
+
+    private boolean isSuccess(List<JLabel> jLabels) {
+        for (int i = 0; i < jLabels.size() - 1; i++) {
+            if (showNumber(jLabels.get(i)) != (i + 1)) {
+                System.out.println("check "+(i+1)+"th");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int showNumber(JLabel jLabel) {
+        if (jLabel.getIcon() == null)
+            return -1;
+
+        ImageIcon imageIcon = (ImageIcon) jLabel.getIcon();
+        return Integer.parseInt(imageIcon.getDescription());
+    }
 }
+
