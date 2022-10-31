@@ -156,7 +156,7 @@ public class Spel extends JFrame {
 
     private boolean isSuccess(List<JLabel> jLabels) {
         for (int i = 0; i < jLabels.size() - 1; i++) {
-            if (showNumber(jLabels.get(i)) != (i + 1)) {
+            if (getImageIconDescription(jLabels.get(i)) != (i + 1)) {
                 System.out.println("check " + (i + 1) + "th");
                 return false;
             }
@@ -164,7 +164,7 @@ public class Spel extends JFrame {
         return true;
     }
 
-    private int showNumber(JLabel jLabel) {
+    private int getImageIconDescription(JLabel jLabel) {
         if (jLabel.getIcon() == null)
             return -1;
 
