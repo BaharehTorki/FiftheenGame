@@ -2,52 +2,62 @@ package se.nackademin;
 
 
 import javax.swing.*;
-import javax.swing.plaf.synth.ColorType;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Spel extends JFrame {
 
-    private JPanel panel = new JPanel();
+    private JPanel mainPanel = new JPanel(new BorderLayout());
+    private JPanel gamePanel = new JPanel(new GridLayout(4, 4));
+
+    private JPanel buttonPanel = new JPanel(new GridLayout(4,2));
+
     final List<JLabel> jLabelList;
 
     public Spel() {
+        add(mainPanel);
+        mainPanel.add(gamePanel, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        buttonPanel.add(new JButton("Shuffle"));
+        buttonPanel.add(new JButton("Exit"));
+        buttonPanel.add(new Label("How many movement should be to finish "));
+        buttonPanel.add(new Label("Left number of movement: "));
+        buttonPanel.add(new Label("Need to fix: "));
+        buttonPanel.add(new Label("Best achievement: "));
+        buttonPanel.setBorder(BorderFactory.createBevelBorder(1));
+        buttonPanel.setSize(500,400);
 
-        add(panel);
-        panel.setLayout(new GridLayout(4, 4));
-        panel.setSize(500, 500);
-        panel.setBackground(Color.white);
+        gamePanel.setSize(500, 500);
+        gamePanel.setBackground(Color.white);
         jLabelList = createJLabelList(true);
         for (JLabel l : jLabelList) {
-            panel.add(l);
+            gamePanel.add(l);
             l.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     JLabel chosen = (JLabel) e.getSource();
 
-                    int iEmpty = getIndexOfEmptyJLabel(panel.getComponents());
-                    int iChosen = getIndexOfChosenJLabel(chosen, panel.getComponents());
+                    int iEmpty = getIndexOfEmptyJLabel(gamePanel.getComponents());
+                    int iChosen = getIndexOfChosenJLabel(chosen, gamePanel.getComponents());
                     if (iChosen != -1) {
-                        List<JLabel> jLabels = convertToListOfJLabel(panel.getComponents());
+                        List<JLabel> jLabels = convertToListOfJLabel(gamePanel.getComponents());
 
                         Collections.swap(jLabels, iEmpty, iChosen);
-                        panel.removeAll();
+                        gamePanel.removeAll();
 
                         for (JLabel c : jLabels) {
-                            panel.add(c);
+                            gamePanel.add(c);
                         }
 
-                        panel.revalidate();
-                        panel.repaint();
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
                         if (isSuccess(jLabels)) {
                             System.out.println(jLabels);
-                            JOptionPane.showMessageDialog(null, "WWWWOOOWWWW");
+                            JOptionPane.showMessageDialog(null, "WWWOOOOWWW! You won!");
                         }
 
                     }
@@ -87,7 +97,7 @@ public class Spel extends JFrame {
         ImageIcon imageIcon = new ImageIcon(filePath, String.valueOf(num));
         Image image = imageIcon.getImage();
         Image newImg = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
-        ImageIcon newImgIcn = new ImageIcon(newImg,String.valueOf(num));
+        ImageIcon newImgIcn = new ImageIcon(newImg, String.valueOf(num));
         newImgIcn.setDescription(String.valueOf(num));
         jLabel.setIcon(newImgIcn);
     }
@@ -147,7 +157,7 @@ public class Spel extends JFrame {
     private boolean isSuccess(List<JLabel> jLabels) {
         for (int i = 0; i < jLabels.size() - 1; i++) {
             if (showNumber(jLabels.get(i)) != (i + 1)) {
-                System.out.println("check "+(i+1)+"th");
+                System.out.println("check " + (i + 1) + "th");
                 return false;
             }
         }
