@@ -2,6 +2,6 @@ package se.nackademin;
 
 public class Main {
     public static void main(String[] args) {
-        Spel spel = new Spel();
+        Game game = new Game();
     }
 }

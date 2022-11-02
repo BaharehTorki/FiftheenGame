@@ -10,18 +10,18 @@ import java.util.List;
 
 import static se.nackademin.utils.GameUtils.*;
 
-public class Spel extends JFrame {
-
-    private JPanel mainPanel = new JPanel(new BorderLayout());
-    private JPanel gamePanel = new JPanel(new GridLayout(4, 4));
-
-    private JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
-    private JPanel sidePanel = new JPanel(new GridLayout(2, 2));
+public class Game extends JFrame {
 
     private final JLabelListGenerator jLListGenerator = new JLabelListGenerator();
     final List<JLabel> jLabelList;
 
-    public Spel() {
+    public Game() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel gamePanel = new JPanel(new GridLayout(4, 4));
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
+        JPanel sidePanel = new JPanel(new GridLayout(2, 2));
+
+
         add(mainPanel);
         mainPanel.add(gamePanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
@@ -33,14 +33,8 @@ public class Spel extends JFrame {
         buttonPanel.add(new Label("Left number of movement: "));
         buttonPanel.add(new Label("Need to fix: "));
         buttonPanel.add(new Label("Best achievement: "));
-        //buttonPanel.setBorder(BorderFactory.createBevelBorder(5));
 
-//        mainPanel.setSize(800,500);
-//        gamePanel.setSize(500, 500);
-//        buttonPanel.setSize(500, 400);
-//        sidePanel.setSize(100,500);
-
-        sidePanel.add(new JLabel("Left"));
+        sidePanel.add(new JLabel("dfskljfkldj"));
         sidePanel.add(new JLabel("Left"));
         sidePanel.add(new JLabel("Left"));
         sidePanel.add(new JLabel("Left"));
@@ -56,13 +50,13 @@ public class Spel extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                     List<JLabel> jLabels = convertToListOfJLabel(gamePanel.getComponents());
 
-                    int iEmpty = getIndexOfEmptyJLabel(jLabels);
+                    int indexOfEmpty = getIndexOfEmptyJLabel(jLabels);
 
                     JLabel chosen = (JLabel) e.getSource();
-                    int availableForMove = isAvailableForMove(chosen, jLabels);
+                    int indexOfChosen = getIndexOfChosen(chosen, jLabels);
 
-                    if (availableForMove != -1) {
-                        Collections.swap(jLabels, iEmpty, availableForMove);
+                    if (indexOfChosen != -1) {
+                        Collections.swap(jLabels, indexOfEmpty, indexOfChosen);
                         gamePanel.removeAll();
 
                         for (JLabel c : jLabels) {

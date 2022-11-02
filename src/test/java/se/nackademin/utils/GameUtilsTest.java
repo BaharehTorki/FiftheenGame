@@ -129,6 +129,7 @@ class GameUtilsTest {
 
         assertEquals(-1, actual);
     }
+
 /*    @Test
     void should_return_negative_one_if_none_of_component_is_not_label_with_image() {
         String filePath = this.getClass().getClassLoader().getResource("bricka_1.png").getFile();

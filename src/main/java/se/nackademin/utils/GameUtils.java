@@ -39,7 +39,7 @@ public class GameUtils {
         return -1;
     }
 
-    public static int isAvailableForMove(JLabel chosen, List<JLabel> jLabels) {
+    public static int getIndexOfChosen(JLabel chosen, List<JLabel> jLabels) {
         if (chosen.getIcon() == null) {
             return -1;
         }
@@ -101,6 +101,4 @@ public class GameUtils {
         }
         return false;
     }
-
-
 }

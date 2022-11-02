@@ -13,6 +13,7 @@ public class JLabelListGenerator {
 
         JLabel jLabel = new JLabel();
         list.add(jLabel);
+
         for (int i = 1; i < 16; i++) {
             list.add(createJLabelWithImage(i));
         }
@@ -39,6 +40,7 @@ public class JLabelListGenerator {
 
         imageIcon.setImage(image.getScaledInstance(125, 125, Image.SCALE_SMOOTH));
         imageIcon.setDescription(String.valueOf(number));
+
         return imageIcon;
     }
 }
