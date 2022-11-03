@@ -10,7 +10,8 @@ import java.util.List;
 public class Game extends JFrame {
     Border border = BorderFactory.createCompoundBorder( BorderFactory.createMatteBorder(3,3,3,3,Color.darkGray),BorderFactory.createBevelBorder(BevelBorder.LOWERED));
     private final JLabelListGenerator jLListGenerator = new JLabelListGenerator();
-
+    private final JPanel gamePanel;
+    private final JLabel statusLabel;
     public Game() {
 
         JPanel mainPanel        = new JPanel(new BorderLayout());
@@ -18,8 +19,9 @@ public class Game extends JFrame {
         JPanel rightSidePanel   = new JPanel();
         JPanel leftSidePanel    = new JPanel();
         JPanel controllerPanel  = new JPanel(new FlowLayout(FlowLayout.CENTER, 40,40));
-        JPanel gamePanel        = new JPanel(new GridLayout(4, 4));
+        gamePanel               = new JPanel(new GridLayout(4, 4));
 
+        statusLabel = new JLabel();
         mainPanel.setBorder(border);
         gamePanel.setBorder(border);
 
@@ -30,11 +32,15 @@ public class Game extends JFrame {
         mainPanel.add(leftSidePanel, BorderLayout.WEST);
         mainPanel.add(controllerPanel, BorderLayout.SOUTH);
 
+        puttingListOfJLabelInGamePanel();
+
         JButton new_game = new JButton("new game");
         new_game.addActionListener(e -> {
-                puttingListOfJLabelInGamePanel(gamePanel);
-                revalidate();
-                repaint();
+
+            statusLabel.setText(" ");
+            puttingListOfJLabelInGamePanel();
+            revalidate();
+            repaint();
         });
 
         JButton finish = new JButton("Finish");
@@ -43,8 +49,7 @@ public class Game extends JFrame {
         });
         controllerPanel.add(new_game);
         controllerPanel.add(finish);
-
-        puttingListOfJLabelInGamePanel(gamePanel);
+        controllerPanel.add(statusLabel);
 
         pack();
         setLocationRelativeTo(null);
@@ -52,14 +57,13 @@ public class Game extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void puttingListOfJLabelInGamePanel(JPanel gamePanel) {
+    private void puttingListOfJLabelInGamePanel() {
         gamePanel.removeAll();
         final List<JLabel> jLabelList = jLListGenerator.createShuffleJLabelList();
 
         for (JLabel l : jLabelList) {
             gamePanel.add(l);
-            l.addMouseListener(new MouseClickedAction(gamePanel));
+            l.addMouseListener(new MouseClickedAction(gamePanel, statusLabel));
         }
     }
-
 }

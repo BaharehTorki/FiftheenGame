@@ -11,8 +11,11 @@ import static se.nackademin.utils.GameUtils.*;
 public class MouseClickedAction extends MouseAdapter {
     private JPanel gamePanel;
 
-    public MouseClickedAction(JPanel gamePanel) {
+    private JLabel statusLabel;
+
+    public MouseClickedAction(JPanel gamePanel, JLabel statusLabel) {
         this.gamePanel = gamePanel;
+        this.statusLabel = statusLabel;
     }
 
     @Override
@@ -35,8 +38,7 @@ public class MouseClickedAction extends MouseAdapter {
             gamePanel.revalidate();
             gamePanel.repaint();
 
-            if (isSuccess(jLabels)) {
-                System.out.println(jLabels);
+            if (isSuccess(jLabels, statusLabel)) {
                 JOptionPane.showMessageDialog(null, "Grattis, du vann!!");
             }
         }

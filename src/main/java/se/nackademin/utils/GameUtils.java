@@ -55,7 +55,16 @@ public class GameUtils {
     public static boolean isSuccess(List<JLabel> jLabels) {
         for (int i = 0; i < jLabels.size() - 1; i++) {
             if (getImageIconDescriptionAsInt(jLabels.get(i)) != (i + 1)) {
-                System.out.println("check " + (i + 1) + "th");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isSuccess(List<JLabel> jLabels, JLabel statusLabel) {
+        for (int i = 0; i < jLabels.size() - 1; i++) {
+            if (getImageIconDescriptionAsInt(jLabels.get(i)) != (i + 1)) {
+                statusLabel.setText("Now fix " + (i + 1) + "th");
                 return false;
             }
         }
