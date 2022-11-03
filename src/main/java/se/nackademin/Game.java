@@ -8,18 +8,19 @@ import java.awt.*;
 import java.util.List;
 
 public class Game extends JFrame {
-    Border border = BorderFactory.createCompoundBorder( BorderFactory.createMatteBorder(3,3,3,3,Color.darkGray),BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+    Border border = BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.darkGray), BorderFactory.createBevelBorder(BevelBorder.LOWERED));
     private final JLabelListGenerator jLListGenerator = new JLabelListGenerator();
     private final JPanel gamePanel;
     private final JLabel statusLabel;
+
     public Game() {
 
-        JPanel mainPanel        = new JPanel(new BorderLayout());
-        JPanel topPanel         = new JPanel();
-        JPanel rightSidePanel   = new JPanel();
-        JPanel leftSidePanel    = new JPanel();
-        JPanel controllerPanel  = new JPanel(new FlowLayout(FlowLayout.CENTER, 40,40));
-        gamePanel               = new JPanel(new GridLayout(4, 4));
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel topPanel = new JPanel();
+        JPanel rightSidePanel = new JPanel();
+        JPanel leftSidePanel = new JPanel();
+        JPanel controllerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 40));
+        gamePanel = new JPanel(new GridLayout(4, 4));
 
         statusLabel = new JLabel();
         mainPanel.setBorder(border);
@@ -36,11 +37,13 @@ public class Game extends JFrame {
 
         JButton new_game = new JButton("new game");
         new_game.addActionListener(e -> {
-
-            statusLabel.setText(" ");
-            puttingListOfJLabelInGamePanel();
-            revalidate();
-            repaint();
+            int answer = JOptionPane.showConfirmDialog(null, "You will lose everything, are you sure?");
+            if (answer == 0) {
+                statusLabel.setText(" ");
+                puttingListOfJLabelInGamePanel();
+                revalidate();
+                repaint();
+            }
         });
 
         JButton finish = new JButton("Finish");
