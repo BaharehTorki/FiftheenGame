@@ -2,6 +2,8 @@ package se.nackademin;
 
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,33 +13,35 @@ import java.util.List;
 import static se.nackademin.utils.GameUtils.*;
 
 public class Game extends JFrame {
-
+    Border border = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
     private final JLabelListGenerator jLListGenerator = new JLabelListGenerator();
     final List<JLabel> jLabelList;
 
     public Game() {
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBorder(border);
         JPanel gamePanel = new JPanel(new GridLayout(4, 4));
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
-        JPanel sidePanel = new JPanel(new GridLayout(2, 2));
-
+        gamePanel.setBorder(border);
+        JPanel controllerPanel = new MyJPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
+        controllerPanel.setBorder(border);
+        JPanel monitoringPanel = new JPanel(new GridLayout(4, 1));
+        monitoringPanel.setBorder(border);
+        JPanel sidePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
         add(mainPanel);
         mainPanel.add(gamePanel, BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(controllerPanel, BorderLayout.SOUTH);
+        mainPanel.add(monitoringPanel, BorderLayout.EAST);
         mainPanel.add(sidePanel, BorderLayout.WEST);
 
-        buttonPanel.add(new JButton("Shuffle"));
-        buttonPanel.add(new JButton("Exit"));
-        buttonPanel.add(new Label("How many movement should be to finish "));
-        buttonPanel.add(new Label("Left number of movement: "));
-        buttonPanel.add(new Label("Need to fix: "));
-        buttonPanel.add(new Label("Best achievement: "));
+        controllerPanel.add(new JButton("new game"));
+        controllerPanel.add(new JButton("Finish"));
 
-        sidePanel.add(new JLabel("dfskljfkldj"));
-        sidePanel.add(new JLabel("Left"));
-        sidePanel.add(new JLabel("Left"));
-        sidePanel.add(new JLabel("Left"));
+        monitoringPanel.add(new Label("How many movement should be to finish "));
+        monitoringPanel.add(new Label("Left number of movement: "));
+        monitoringPanel.add(new Label("Need to fix: "));
+        monitoringPanel.add(new Label("Best achievement: "));
+
 
         gamePanel.setBackground(new Color(82, 53, 31));
 
@@ -68,7 +72,7 @@ public class Game extends JFrame {
 
                         if (isSuccess(jLabels)) {
                             System.out.println(jLabels);
-                            JOptionPane.showMessageDialog(null, "WWWOOOOWWW! You won!");
+                            JOptionPane.showMessageDialog(null, "Grattis, du vann!!");
                         }
                     }
                 }
