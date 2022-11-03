@@ -42,45 +42,13 @@ public class Game extends JFrame {
         controllerPanel.add(new JButton("new game"));
         controllerPanel.add(new JButton("Finish"));
 
-//        rightSidePanel.add(new Label("How many movement should be to finish "));
-//        rightSidePanel.add(new Label("Left number of movement: "));
-//        rightSidePanel.add(new Label("Need to fix: "));
-//        rightSidePanel.add(new Label("Best achievement: "));
-
         gamePanel.setBackground(new Color(82, 53, 31));
         gamePanel.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
         jLabelList = jLListGenerator.createShuffleJLabelList();
 
         for (JLabel l : jLabelList) {
             gamePanel.add(l);
-            l.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    List<JLabel> jLabels = convertToListOfJLabel(gamePanel.getComponents());
-
-                    int indexOfEmpty = getIndexOfEmptyJLabel(jLabels);
-
-                    JLabel chosen = (JLabel) e.getSource();
-                    int indexOfChosen = getIndexOfChosen(chosen, jLabels);
-
-                    if (indexOfChosen != -1) {
-                        Collections.swap(jLabels, indexOfEmpty, indexOfChosen);
-                        gamePanel.removeAll();
-
-                        for (JLabel c : jLabels) {
-                            gamePanel.add(c);
-                        }
-
-                        gamePanel.revalidate();
-                        gamePanel.repaint();
-
-                        if (isSuccess(jLabels)) {
-                            System.out.println(jLabels);
-                            JOptionPane.showMessageDialog(null, "Grattis, du vann!!");
-                        }
-                    }
-                }
-            });
+            l.addMouseListener(new MouseClickedAction(gamePanel));
         }
 
         pack();
