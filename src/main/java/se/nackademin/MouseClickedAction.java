@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static se.nackademin.utils.GameUtils.*;
-import static se.nackademin.utils.GameUtils.isSuccess;
 
 public class MouseClickedAction extends MouseAdapter {
     private JPanel gamePanel;
