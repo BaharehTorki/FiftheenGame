@@ -25,7 +25,7 @@ public class MouseClickedAction extends MouseAdapter {
         int indexOfEmpty = getIndexOfEmptyJLabel(jLabels);
 
         JLabel chosen = (JLabel) e.getSource();
-        int indexOfChosen = getIndexOfChosen(chosen, jLabels);
+        int indexOfChosen = getIndexOfChosenIfAvailableForMove(chosen, jLabels);
 
         if (indexOfChosen != -1) {
             Collections.swap(jLabels, indexOfEmpty, indexOfChosen);

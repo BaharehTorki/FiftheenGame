@@ -10,7 +10,6 @@ import java.util.List;
 
 class GameUtilsTest {
 
-
     @Test
     void should_return_description_as_a_int() {
         String filePath = this.getClass().getClassLoader().getResource("bricka_1.png").getFile();
@@ -25,7 +24,7 @@ class GameUtilsTest {
     @Test
     void should_return_negative_one_if_description_was_not_int() {
         String filePath = this.getClass().getClassLoader().getResource("bricka_1.png").getFile();
-        Icon icon = new ImageIcon(filePath, "Bahareh beside a tree");
+        Icon icon = new ImageIcon(filePath, "String");
         JLabel jLabel = new JLabel(icon);
 
         int actual = GameUtils.getImageIconDescriptionAsInt(jLabel);
@@ -59,7 +58,7 @@ class GameUtilsTest {
         jLabels.add(new JLabel(new ImageIcon(filePath,"10")));
 
 
-        boolean actual = GameUtils.isSuccess(jLabels);
+        boolean actual = GameUtils.isSuccess(jLabels, new JLabel());
 
         assertTrue(actual);
     }
@@ -81,7 +80,7 @@ class GameUtilsTest {
         jLabels.add(new JLabel(new ImageIcon(filePath,"10")));
 
 
-        boolean actual = GameUtils.isSuccess(jLabels);
+        boolean actual = GameUtils.isSuccess(jLabels, new JLabel());
 
         assertFalse(actual);
     }
@@ -129,24 +128,4 @@ class GameUtilsTest {
 
         assertEquals(-1, actual);
     }
-
-/*    @Test
-    void should_return_negative_one_if_none_of_component_is_not_label_with_image() {
-        String filePath = this.getClass().getClassLoader().getResource("bricka_1.png").getFile();
-
-        List<Component> jLabels = new ArrayList<>();
-
-       jLabels.add(new JButton("button_1"));
-       jLabels.add(new JCheckBox());
-       jLabels.add(new JPanel());
-       jLabels.add(new JComboBox<>());
-       jLabels.add(new JButton("button_3"));
-       jLabels.add(new JLabel(new ImageIcon(filePath)));
-       jLabels.add(new JCheckBox());
-       jLabels.add(new JButton("button_4"));
-
-        int actual = GameUtils.getIndexOfEmptyJLabel(jLabels);
-
-        assertEquals(-1, actual);
-    }*/
 }

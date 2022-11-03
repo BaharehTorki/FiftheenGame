@@ -39,26 +39,17 @@ public class GameUtils {
         return -1;
     }
 
-    public static int getIndexOfChosen(JLabel chosen, List<JLabel> jLabels) {
+    public static int getIndexOfChosenIfAvailableForMove(JLabel chosen, List<JLabel> jLabels) {
         if (chosen.getIcon() == null) {
             return -1;
         }
 
-        int i = getIndexOfChosenJLabel(chosen, jLabels);
-        int[] neighbours = getNeighbours(i);
+        int indexOfChosenJLabel = getIndexOfChosenJLabel(chosen, jLabels);
+        int[] neighbours = getNeighbours(indexOfChosenJLabel);
         if (isAnySpace(jLabels, neighbours)) {
-            return i;
+            return indexOfChosenJLabel;
         }
         return -1;
-    }
-
-    public static boolean isSuccess(List<JLabel> jLabels) {
-        for (int i = 0; i < jLabels.size() - 1; i++) {
-            if (getImageIconDescriptionAsInt(jLabels.get(i)) != (i + 1)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static boolean isSuccess(List<JLabel> jLabels, JLabel statusLabel) {
@@ -102,9 +93,9 @@ public class GameUtils {
         return -1;
     }
 
-    private static boolean isAnySpace(List<JLabel> jLabels, int[] existence) {
-        for (int i : existence) {
-            if (i != -1 && jLabels.get(i).getIcon() == null) {
+    private static boolean isAnySpace(List<JLabel> jLabels, int[] neighbours) {
+        for (int neighbour : neighbours) {
+            if (neighbour != -1 && jLabels.get(neighbour).getIcon() == null) {
                 return true;
             }
         }
