@@ -1,14 +1,13 @@
 package se.nackademin;
 
 import org.junit.jupiter.api.Test;
+import se.nackademin.femtonSpel.GameGUI;
 
-import java.io.IOException;
+class GameGUITest {
 
-class GameTest {
+    GameGUI sut = new GameGUI();
 
-    Game sut = new Game();
-
-    GameTest() {
+    GameGUITest() {
     }
 
     @Test

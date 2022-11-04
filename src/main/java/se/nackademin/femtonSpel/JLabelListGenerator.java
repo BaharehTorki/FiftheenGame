@@ -1,4 +1,4 @@
-package se.nackademin;
+package se.nackademin.femtonSpel;
 
 import javax.swing.*;
 import java.awt.*;

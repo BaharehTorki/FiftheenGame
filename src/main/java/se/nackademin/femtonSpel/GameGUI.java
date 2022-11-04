@@ -1,5 +1,7 @@
-package se.nackademin;
+package se.nackademin.femtonSpel;
 
+
+import se.nackademin.listener.MouseClickedAction;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -7,13 +9,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.List;
 
-public class Game extends JFrame {
+public class GameGUI extends JFrame {
     Border border = BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.darkGray), BorderFactory.createBevelBorder(BevelBorder.LOWERED));
     private final JLabelListGenerator jLListGenerator = new JLabelListGenerator();
     private final JPanel gamePanel;
     private final JLabel statusLabel;
 
-    public Game() {
+    public GameGUI() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel topPanel = new JPanel();

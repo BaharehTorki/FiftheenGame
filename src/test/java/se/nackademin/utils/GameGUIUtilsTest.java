@@ -1,14 +1,15 @@
 package se.nackademin.utils;
 
 import org.junit.jupiter.api.Test;
+import se.nackademin.femtonSpel.GameUtils;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class GameUtilsTest {
+class GameGUIUtilsTest {
 
     @Test
     void should_return_description_as_a_int() {

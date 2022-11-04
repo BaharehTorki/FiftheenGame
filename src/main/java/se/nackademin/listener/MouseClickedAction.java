@@ -1,4 +1,4 @@
-package se.nackademin;
+package se.nackademin.listener;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.List;
 
-import static se.nackademin.utils.GameUtils.*;
+import static se.nackademin.femtonSpel.GameUtils.*;
 
 public class MouseClickedAction extends MouseAdapter {
     private JPanel gamePanel;
